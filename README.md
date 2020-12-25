@@ -1,1 +1,3 @@
-# how-to
+# How Tos
+
+A collection of How To documents
