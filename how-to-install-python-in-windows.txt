@@ -1,74 +1,88 @@
+Note: the steps in this guide were used to install Python 3.7.3 on Windows 10 64-bit.
+
 [Download]
 
-1. Go to https://python.org/downloads/
-2. Scroll down to the "Looking for a specific release?" table
-3. In the "Release version" column, click the current version (currently Python 3.7.3)
-4. Scroll down to the Files table
-5. Click "Windows x86-64 executable installer"
-6. When prompted, save the file to the desktop
+1. Go to https://python.org/downloads/.
+2. Scroll down to the "Looking for a specific release?" table.
+3. In the "Release version" column, click the current version.
+4. Scroll down to the Files table.
+5. Click "Windows x86-64 executable installer".
+6. When prompted, save the file to the Downloads folder.
 
 [Verify the Hash]
 
 1. In the Files table, next to "Windows x86-64 executable installer", copy the MD5 Sum.
-2. Use certutil to compare this hash file with the one from the downloaded file
+2. Use certutil to compare this hash file with the one from the downloaded file:
+
+   certutil -hashfile C:\Users\<username>\Downloads\python-3.7.3-amd64.exe md5
 
 [Install]
 
-1. Double-click the python-X.X.X-amd64.exe file
+1. Double-click the python-3.7.3-amd64.exe file.
 2. Confirm the certificate:
 
    a. Ensure the following is displayed:
 
-      Name: C:\Users\<username>\Desktop\python-X.X.X-amd64.exe
+      Name: C:\Users\<username>\Downloads\python-3.7.3-amd64.exe
       Publisher: Python Software Foundation
       Type: Application
-      From: C:\Users\<username>\Desktop\python-X.X.X-amd64.exe
+      From: C:\Users\<username>\Downloads\python-3.7.3-amd64.exe
 
-   b. Click Python Software Foundation
-   c. Click View Certificate
+   b. Click Python Software Foundation.
+   c. Click View Certificate.
    d. Ensure the following is displayed:
 
       Issued to: Python Software Foundation
       Issued by: DigiCert SHA2 Assured ID Code Signing CA
       Valid from: <Make sure the date is current>
 
-   e. Click the Certification Path tab
-   f. Make sure the Certificate status is "The certificate is OK"
-   g. Click OK twice
-   h. Click Run
+   e. Click the Certification Path tab.
+   f. Make sure the Certificate status is "The certificate is OK".
+   g. Click OK twice.
+   h. Click Run.
 
-2. On the Install screen, uncheck "Install launcher for all users"
-3. Check "Add Python X.X to PATH
-    See: https://stackoverflow.com/questions/34900042/why-would-i-add-python-to-path
-4. Click Install Now
+2. On the Install screen, uncheck "Install launcher for all users".
+3. Check "Add Python X.X to PATH".
+   See: https://stackoverflow.com/questions/34900042/why-would-i-add-python-to-path
+4. Click Install Now.
     
-   Default location: C:\Users\<username>\AppData\Local\Programs\Python\PythonXX
+   Note: the default install location is: C:\Users\<username>\AppData\Local\Programs\Python\Python37
 
-5. On the "Setup was successful" screen, click Close
+5. On the "Setup was successful" screen, click Close.
 
 [Create a Desktop Shortcut]
 
-1. Click Start
-2. Scroll down and click on the folder named Python X.X.
-2. Right-click on Python X.X (64-bit) and click More->Open File Location
+1. Click the Start button.
+2. Scroll down and click on the folder named Python 3.7
+2. Right-click on Python 3.7 (64-bit) and click More->Open File Location
 3. Copy the shortcut to the desktop
 
-[To Install a Package]
+[To Run a Python Test Script]
 
-1. Open cmd
+1. Open Command Prompt
+2. Type the following command:
+
+   notepad hello-world.py
+
+3. When prompted to create a new file, click Yes
+4. In the blank NotePad file, type the following line
+
+   print("Hello World")
+
+5. Click File->Save
+6. Close the NotePad file
+7. In Command prompt, type the following
+
+   python hello-world.py
+
+   You should see the line "Hello World" printed in the Command Prompt window.
+
+[To Install a Python Package]
+
+1. Open Command Prompt
 2. Type the following:
 
    python -m pip install <package name>
-
-   See: https://docs.python.org/3/installing/index.html
-
-[To Run a Script]
-
-1. Create a script in NotePad++ and save it with the .py extension
-2. Open cmd
-3. Type the following and press enter:
-
-   python <path to script>.py
 
 [Documenation]
 
@@ -78,4 +92,5 @@ https://docs.python.org/3.7/tutorial/index.html
 Documentation
 https://docs.python.org/3.7/index.html
 
-D:\code\python
+Installing Python Modules
+https://docs.python.org/3/installing/index.html
