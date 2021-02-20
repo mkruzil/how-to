@@ -1,0 +1,30 @@
+# Git Workflow
+
+#Check out the main branch
+git checkout main
+
+#Pull down changes made on the main branch of the original repo to your local main branch. 
+git fetch upstream
+
+#Merge changes made on the main branch of the original repo into your local main branch. 
+git merge
+
+#View the status of the local branches
+git log --oneline --decorate
+
+#Push the updates to the forked main branch
+git push origin main
+
+#Switch to the feature branch
+git checkout feature-1
+
+#Merge changes from the local master branch into the feature branch. If there is a merge conflict, see: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/resolving-a-merge-conflict-using-the-command-line
+git merge main
+
+#View the status of the local branches
+git log --oneline --decorate
+
+#Push updates to the forked feature branch.
+git push origin feature-1
+
+#When ready to make a pull request, perform a rebase to squash all the commits into one. See: https://docs.github.com/en/github/using-git/about-git-rebase

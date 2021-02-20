@@ -1,0 +1,205 @@
+[RULES]
+
+A rule takes on the following format:
+
+iptables [-t table] command [match] [jump]
+
+Rules in a chain are numbered from the top to bottom, starting with number 1.
+
+[TABLES]
+
+Note: table names are case sensitive
+
+raw: used before any other tables. It has 2 chains: PREROUTING and OUTPUT
+nat: used for Network Address Translation
+mangle: used to change the content of packets and headers, such as TTL. This table has all 5 chains listed below.
+filter: used exclusively for filtering packets. This table has 3 chains: INPUT, FORWARD, and OUTPUT
+
+[COMMANDS]
+
+-A = --append - appends the rule to the end of the chain.
+-D = --delete - deletes a rule in a chain.
+-R = --replace - replaces a rule at the specified line.
+-I = --insert - inserts a rule in the chain.
+-L = --list - lists all the entries in the specified chain.
+-F = --flush - deletes all rules in the specified chain
+
+[COMMAND OPTIONS]
+
+-v = --verbose - used with all the common commands listed above except flush
+-x = --exact - used only with the list command to show total bytes expanded (ie, not using kilobytes, megabytes, gigabytes, etc.)
+-n = --numeric - used only with the list command to show all host names and network names as numbers, such as IP addresses
+-c = --set-counters - used with the insert, append, and replace commands to initialize the packet counters
+--line-numbers - used only with the list command to display line numbers
+
+[CHAINS]
+
+PREROUTING: Packets will enter this chain before a routing decision is made.
+INPUT: Packet is going to be locally delivered. It does not have anything to do with processes having an opened socket.
+FORWARD: All packets that have been routed and were not for local delivery will traverse this chain.
+OUTPUT: Packets sent from the machine itself will be visiting this chain.
+POSTROUTING: Routing decision has been made. Packets enter this chain just before handing them off to the hardware.
+
+[MATCHES (IMPLICIT)]
+
+Note: implicit means they don't require the -m switch (see Explicit rules in the next section)
+
+-p <TCP|UDP|ICMP|ALL...> = --protocol
+-s <192.168.1.1|192.168.0.0/24> = --source. A ! following this switch is a logical NOT
+-d <192.168.1.1|192.168.0.0/24> = --destination. A ! following this switch is a logical NOT
+-i <etho|lo...> = --in-interface - incoming interface. Works only with the following chains: INPUT, FORWARD and PREROUTING. The default is +, which matches all interfaces. The + can also be used as a wildcard to match multiple interfaces such as eth+
+-o <etho|lo...> = --out-interface - outgoing interface. Works only with the following chains: OUTPUT, FORWARD and POSTROUTING. The default is +, which matches all interfaces. The + can also be used as a wildcard to match multiple interfaces such as eth+
+--comment "A comment" - used to add a comment at the end of a line.
+
+TCP-ONLY Matches:
+
+-sport <22|80|445|ssh> = --source-port. Note: this can be a port number of service name. The service name must be take from /etc/services. Note: using service names is slower, very noticable when you have 200+ rules, due to the lookup of service name to port number.
+-dport <22|80|445|ssh> = --destination-port. Same as sport otherwise
+
+[MATCHES (EXPLICIT)]
+
+Note: these are matches that must be preceeded with the -m switch
+
+-m state --state <state(s)> - this is an extended version of the state match. It matches on one or more comma-separated states such as INVALID, ESTABLISHED, NEW and RELATED
+-m conntrack --ctstate <state(s)> - this is an extended version of the state match. It matches on one or more comma-separated states such as INVALID, ESTABLISHED, NEW and RELATED and additional states not found in the state match.
+-m iprange --src-range <ip address range> - this matches on a specific range of source IP addresses, such as 192.168.1.13-192.168.2.19
+-m iprange --dst-range <ip address range> - Same as --src-range except works on destination addresses
+-m multiport --source-port <ports> - allows you to specify a maximum of 15 comma-separated range of source ports
+-m multiport --destintation-port <ports> - allows you to specify a maximum of 15 comma-separated range of destination ports
+-m multiport --port <ports> - allows you to specify a maximum of 15 comma-separated range of ports that apply to both source and destination
+
+[STATES]
+
+INVALID means that the packet is associated with no known stream or connection and that it may contain faulty data or headers. 
+ESTABLISHED means that the packet is part of an already established connection that has seen packets in both directions and is fully valid. 
+NEW means that the packet has or will start a new connection, or that it is associated with a connection that has not seen packets in both directions.
+RELATED means that the packet is starting a new connection and is associated with an already established connection. This could for example mean an FTP data transfer, or an ICMP error associated with a TCP or UDP connection. 
+
+[JUMPS]
+
+-j ACCEPT
+-j DROP (the packet is immediately discarded, no further rules are applied)
+-j REJECT --reject-with <error message> (the same as DROP except it sends back an error message to the host sending the packet; Can only be used with INPUT, FORWARD and OUTPUT or their subchains); Valid error message are: icmp-net-unreachable, icmp-host-unreachable, icmp-port-unreachable, icmp-proto-unreachable, icmp-net-prohibited and icmp-host-prohibited. Default = port-unreachable 
+-j LOG (see: https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html#LOGTARGET)
+
+[SAMPLE RULES]
+
+# Format: 
+iptables [-t raw|nat|mangle|filter] -A (append)|-D (delete)|-R (replace)|-I (insert)|-L (list)|-F (flush) [-v (verbose) -x (exact) -n (numeric) -c (counters) --line-numbers] [-p (protocol) -s (source) -d (destination) -i (in-interface) -o (out-interface) -sport (source port) -dport (destination port)] [-m state|conntrack|iprange|multiport] PREROUTING|INPUT|FORWARD|OUTPUT|POSTROUTING [-j ACCEPT|DROP|REJECT|LOG] --comment "A comment"
+
+# Note: You need to allow connections that you want to allow through and then drop everything else.
+# Note: Unless the system is a router or traffic is passed through the system, the destination is implicitly assumed. However, when viewing rules, it's easier to read if the destination is explicitly set.
+
+# Drop a specific IP address
+iptables -t filter -A INPUT -s XXX.XXX.XXX.XXX -j DROP
+
+# Allow loopback traffic (since many programs use the loopback address)
+iptables -t filter -A INPUT -i lo -j ACCEPT
+
+# Accept all established inbound connections
+iptables -t filter -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Accept ping connections
+iptables -t filter -A INPUT -p icmp -j ACCEPT
+
+# Accept SSH connections
+iptables -t filter -A INPUT -p tcp --dport ssh -j ACCEPT
+
+# Accept WWW traffic (for updates and installations via the web)
+iptables -t filter -A INPUT -p tcp --dport 80 -j ACCEPT
+
+# Log iptables denied (this rule MUST come BEFORE the DROP rule or else the dropped packets will get dropped before they are logged)
+iptables -t filter -A INPUT -m limit --limit 5/min -j LOG --log-prefix "iptables denied: " --log-level 7
+
+# Drop all other inbound traffic
+iptables -t filter -A INPUT -j DROP
+iptables -t filter -A FORWARD -j DROP
+
+[VIEWING RULES]
+
+iptables -L -n -v --line-numbers 
+
+[INSERTING RULES]
+
+# Example:
+iptables -t filter -I INPUT 5 -p tcp --dport 445 -j ACCEPT
+
+[DELETING RULES]
+
+# Method 1: Use line numbers
+iptables -t filter -D INPUT <line number> 
+
+OR
+
+# Method 2: Enter the whole rule
+iptables -t filter -D INPUT -p tcp --dport <port number> -j ACCEPT
+
+OR
+
+# Method 3: Delete everything in the chain
+iptables -t filter -F INPUT
+
+[REPLACING RULES]
+
+Note: Insert the new rule before deleting the old rule so that, as is the case with changing an SSH rule, you don't lose access to the machine after the deletion of a rule.
+
+1. Make a note of the line number of the rule you want to replace
+2. Follow the steps above to insert the rule below the line you want to replace
+3. Follow the steps above to delete the rule you want to replace. This will renumber the rules accordingly.
+
+[VIEWING LOGS]
+
+# Look for entries that say "iptables denied"
+grep -E 'denied' /var/log/kern.log
+
+Note: if your logs are empty, make sure the LOG rule comes BEFORE the DROP rule or else the dropped packets will get dropped before they are logged.
+
+[SAVING AND RESTORING RULES]
+
+# Create a file to hold your firewall rules:
+vi /etc/iptables.firewall.rules
+
+# Save the rules currently in the firewall so they can be loaded at next boot. The -c switch says "do not reset packet counters".
+iptables-save -c > /etc/iptables.firewall.rules
+Note: if you get a "permission denied" message, trying running the command with sudo
+
+# Load the saved tables back into the firewall. The -c switch says "do not reset packet counters".
+iptables-restore -c < /etc/iptables.firewall.rules
+
+# Load the saved tables back into the firewall at each startup by addint the following lines:
+vi /etc/network/interfaces
+  # eth0 interface (the -c option says do not reset the packet counters)
+  pre-up iptables-restore -c < /etc/iptables.rules
+
+[NOTES]
+
+iptables allows all traffic by default. 
+
+[RESOURCES]
+
+Iptables Tutorial 1.2.2
+https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html
+
+IptablesHowTo 
+https://help.ubuntu.com/community/IptablesHowTo 
+
+How to edit iptables rules
+https://fedoraproject.org/wiki/How_to_edit_iptables_rules
+
+Securing Your Server
+https://www.linode.com/docs/security/securing-your-server/
+
+Control Network Traffic with iptables
+https://www.linode.com/docs/security/firewalls/control-network-traffic-with-iptables
+
+An IPTABLES Primer
+https://danielmiessler.com/study/iptables/
+
+Building a Professional Firewall with Linux and Iptables
+https://danielmiessler.com/blog/professional-firewall-iptables/#gs.xB6js1o
+
+Documentation about the netfilter/iptables project
+http://www.netfilter.org/documentation/index.html
+
+Linux iptables Pocket Reference: Firewalls, NAT & Accounting (Pocket Reference (O'Reilly)) 1st Edition,  Kindle Edition  
+https://www.amazon.com/Linux-iptables-Pocket-Reference-Accounting-ebook/dp/B0043D2ER2

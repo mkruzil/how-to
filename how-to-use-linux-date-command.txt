@@ -1,0 +1,30 @@
+#Convert a date to a timestamp
+date -d "2020/06/02" +%s
+
+#Convert a timestamp to a date
+date -d @1591070400
+or
+printf '%(%c)T\n' 1591070400
+
+#Format a timestamp
+date -d @1591070400 +%Y-%m-%d
+
+#Add or subtract to a date
+date --date="$(date +2020-06-15) + 1 day"
+date --date="$(date +2020-06-15) - 1 day"
+
+#Increase timestamp by one day relatively
+timestamp=$(date -d "2020/06/02" +%s)
+cdate=$(date -d @$timestamp +%Y-%m-%d)
+ndate=$(date --date="$(date +$cdate) + 1 day")
+
+#Increase timestamp by number of seconds
+ctimestamp=$(date -d "2020/06/02" +%s)
+ntimestamp=$(expr $ctimestamp + 86400)
+ndate=$(date -d @$ntimestamp +%Y-%m-%d)
+
+[Resources]
+
+man date
+
+https://www.gnu.org/software/coreutils/date

@@ -1,0 +1,95 @@
+[Create a CentOS VM in VirtualBox]
+
+Steps to come...
+
+[Get the IP Address of the VM]
+ 
+1. Start up the VM
+2. Get the VM IP address by typing:
+
+      ip addr
+
+3. Type exit
+
+[SSH into the VM]
+
+Note: this wil make it easier to paste commands into the VM.
+
+1. Open Command Prompt and run this command
+
+   ssh centos@<ip addr>
+
+[Set up Docker Installation Repo]
+
+1. Using the following commands, set up the repository to install and update Docker (this is the recommended aproach):
+
+   sudo yum install yum-utils
+   sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+[Install Docker]
+
+1. Install the latest version of Docker:
+
+   sudo yum install docker-ce docker-ce-cli containerd.io
+
+2. When prompted to accept the GPG key, verify that the fingerprint matches this one:
+
+   Docker Release (CE rpm) <docker@docker.com>
+   060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35
+
+[Launch Docker]
+
+1. Type the following command:
+
+   sudo systemctl start docker
+
+2. To confirm it's running, download a test image and run it in a container:
+
+   sudo docker run hello-world
+
+   If the installation was successful, you will see "Hello from Docker!" in the output.
+
+[Configure Docker]
+
+Note: You need to use sudo to run Docker commands.
+
+1. Set Docker to start on boot:
+
+   sudo systemctl enable docker
+
+   Note: For further configuration options, see: https://docs.docker.com/engine/install/linux-postinstall/
+
+[SCP Nessus Files to VM]
+
+1. On the host system, go to https://github.com/stevemcgrath/docker-nessus_scanner
+2. Click Clone or Download
+3. Click Download ZIP
+4. When prompted, save the file to the Downloads folder
+5. Extract the Zip file
+4. On the VM, create the following directory
+   
+   mkdir ~/nessus
+
+6. Exit out of the VM and SCP the unzipped files to the nessus-files directory
+
+   scp deploy.sh Dockerfile gpg.key nessus_adduser.exp nessus_startup.sh yum.repo centos@<ip addr>:~/nessus
+
+[Launch and Examine Container]
+
+sudo docker run -dt -e SECURITYCENTER=Yes stevemcgrath/nessus_scanner:latest
+sudo docker images
+sudo docker run -ti 15d354d7e15e bash 
+
+[Step 7: Interact with the Container]
+
+sudo docker run -d -p 8834:8834 stevemcgrath/nessus_scanner:latest
+Alternate commands:
+   sudo docker container ls
+   sudo docker run -d -p 8834:8834 15d354d7e15e
+curl -k https://localhost:8834
+
+[Resources]
+
+https://docs.docker.com/get-docker/
+https://docs.docker.com/engine/install/centos/
+https://wiki.centos.org/Container/Tools
