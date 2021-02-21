@@ -1,30 +1,152 @@
-# Git Workflow
+OS: Microsoft Windows
+
+[Step 1: Fork Repository to Laptop]
+
+1. Log in to your GitHub account page.
+2. Go to the page of the repo you want to fork.
+3. Click Code.
+4. Click the SSH tab.
+5. Click the copy button to copy the clone command and paste it in a blank text file for reference later.
+6. Click Fork.
+7. On the forked repo, click Code.
+8. Click the HTTPS tab.
+9. Click the copy button to copy the clone URL and paste it in the text file for reference later.
+10. Click the SSH tab
+11. Click the copy button to copy the clone command and paste it in the text file for reference later.
+
+[Step 2: Clone the Fork to Laptop]
+
+1. Open Command Prompt
+2. Navigate to your git directory
+
+   cd C:\Users\%username%\git
+
+3. Clone the forked repo using the clone URL you copied earlier:
+
+   git clone https://github.com/<your username>/<repo name>.git
+
+4. Navigate to the cloned repo
+
+   cd sandbox
+
+4. Create a connection to the master repo using the clone SSH command you copied earlier, so you can push changes to it:
+
+   git remote add upstream git@github.com:<master repo username>/<repo name>.git
+
+5. Set the connection to your forked repo to SSH using the clone SSH command you copied earlier, so you can push changes to it (using your personal access token instead of a username/password combination):
+
+   git remote set-url origin git@github.com:<your username>/<repo name>.git
+
+5. Show your git connections by typing the following command:
+
+   git remote -v
+
+   You should see the following output:
+
+   origin  git@github.com:<your username>/<repo name>.git (fetch)
+   origin  git@github.com:<your username>/<repo name>.git (push)
+   upstream        git@github.com:<master repo username>/<repo name>.git (fetch)
+   upstream        git@github.com:<master repo username>/<repo name>.git (push)
+
+[Step 3: Set Up Tracking of the Master Repo Master Branch]
+
+#Set your local master branch so that it tracks changes on the remote master branch. Otherwise, you'll never see the changes made on the master repo.
+git branch -u upstream/main
+
+#Confirm the change
+git branch -vv
+
+[Step 4: Create a Working Branch]
+
+1. Type the following to view the current branches
+
+   git branch
+
+2. Type the following to create a new branch
+
+   git branch feature-1
+
+3. View the commit log
+  
+   git log --oneline --decorate
+
+3. Check out the branch
+
+   git checkout feature-1
+
+[Step 5: Commit changes]
+
+Make any code changes locally and then commit them using the following commands
+
+git status
+git add *
+git commit -m "<description>"
+
+[Step 5: Sync Changes]
 
 #Check out the main branch
 git checkout main
 
-#Pull down changes made on the main branch of the original repo to your local main branch. 
+#Pull down changes made on the master branch of the master repo to your local master branch. 
 git fetch upstream
 
-#Merge changes made on the main branch of the original repo into your local main branch. 
+#Merge the changes from the master repo master branch into your local master branch
 git merge
 
-#View the status of the local branches
+#View the status of the local master branch
 git log --oneline --decorate
 
-#Push the updates to the forked main branch
+#Sync the updates to your forked repo master branch
 git push origin main
 
-#Switch to the feature branch
+#Switch to your feature branch
 git checkout feature-1
 
-#Merge changes from the local master branch into the feature branch. If there is a merge conflict, see: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/resolving-a-merge-conflict-using-the-command-line
+#Merge changes from the updated master branch into the feature branch
+#If you have merge conflicts after running this command, see: https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/resolving-a-merge-conflict-using-the-command-line
 git merge main
 
-#View the status of the local branches
+#View the current status of the branch
 git log --oneline --decorate
 
-#Push updates to the forked feature branch.
+#Sync the updates to your forked repo feature branch.
 git push origin feature-1
 
-#When ready to make a pull request, perform a rebase to squash all the commits into one. See: https://docs.github.com/en/github/using-git/about-git-rebase
+#To see your changes in your forked repo, go to 
+https://github.com/<your username>/<repo name>/tree/feature-1
+
+[Step 6: Rebase Your Commits for Pull Request]
+
+Note: these steps are to perform a rebase in order to squash all your commits into a single commit that can then be used for the pull request. See: https://docs.github.com/en/github/using-git/about-git-rebase
+
+#Make sure you are on the correct branch
+git checkout feature-1
+
+#View your commit history. See: https://stackoverflow.com/questions/1441010/the-shortest-possible-output-from-git-log-containing-author-and-date
+git log --pretty=format:"%h%x09%an%x09%ad%x09%s"
+
+#Launch the git rebase editor to rebase the main branch with the feature branch.
+git rebase --interactive main
+
+#For each commit except the one on the first line, replace "pick" with "squash". When finished, just save the file.
+
+#Confirm all your commits were sqashed into one
+git log --pretty=format:"%h%x09%an%x09%ad%x09%s"
+
+#Force-push your latest changes to the forked repo
+git push origin feature-1 --force
+
+[Step 8: Make a Pull Request to Pull Changes from Forked Repo Master Branch]
+
+Steps to come...
+
+[Resources]
+
+Fork a Repo
+https://docs.github.com/en/github/getting-started-with-github/fork-a-repo
+
+Pro Git book
+https://git-scm.com/book/en/v2
+
+Git Cheatsheet
+https://training.github.com/downloads/github-git-cheat-sheet/
