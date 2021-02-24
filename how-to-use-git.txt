@@ -51,6 +51,7 @@ OS: Microsoft Windows
 [Step 3: Set Up Tracking of the Master Repo Master Branch]
 
 #Set your local master branch so that it tracks changes on the remote master branch. Otherwise, you'll never see the changes made on the master repo.
+git fetch upstream
 git branch -u upstream/main
 
 #Confirm the change
