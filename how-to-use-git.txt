@@ -27,7 +27,7 @@ OS: Microsoft Windows
 
 4. Navigate to the cloned repo
 
-   cd sandbox
+   cd <repo name>
 
 4. Create a connection to the master repo using the clone SSH command you copied earlier, so you can push changes to it:
 
