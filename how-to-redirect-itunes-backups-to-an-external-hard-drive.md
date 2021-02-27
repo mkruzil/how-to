@@ -10,23 +10,23 @@
     c. Click **Back Up Now**.<br />
     d. Close iTunes.
 
-3. Create a new folder named `Apple Computer` at the root of your external hard drive. For example, if the drive letter of your external hard drive is `D`, you would create the following folder:
+3. Create a new folder named `Apple Computer` at the root of your external hard drive. For example, if the drive letter of your external hard drive is `D` you would create the following folder:
    
    `D:\Apple Computer`
 
-3. On your local C drive, follow these steps to open the old `Apple Computer` folder:
+3. On your local C drive, follow these steps to open your old `Apple Computer` folder:
 
    a. Click the **Start** button.<br />
-   b. While the Start menu is open, type the following keyword: `%appdata%` and then press Enter. This will open your AppData folder.<br />
-   c. In the AppData folder, double-click the `Apple Computer` folder.
+   b. While the Start menu is open, type `%appdata%` and press Enter. This will open your `AppData` folder.<br />
+   c. In the `AppData` folder, double-click the `Apple Computer` folder.
 
 4. Right-click on the `MobileSync` folder and click **Copy**:
 
-5. Open the `Apple Computer` folder on your external hard drive, right-click inside the folder and click **Paste** to paste the MobileSync folder from your C drive onto your external hard drive. You should now have the following path on your external hard drive:
+5. Open the `Apple Computer` folder that you created on your external hard drive, right-click inside the folder and click **Paste** to paste the `MobileSync` folder from your C drive onto your external hard drive. You should now have the following path on your external hard drive:
 
    `D:\Apple Computer\MobileSync`
 
-6. Reopen **iTunes**.
+6. Re-open **iTunes**.
 7. Go to **Edit->Preferences->Devices**.
 8. In the list of backups, click on each backup and click **Delete Backup**.
 9. Close iTunes.
@@ -40,8 +40,8 @@
 11. Open the `MobileSync` folder on your C drive:
 
     a. Click the **Start** button.<br />
-    b. While the Start menu is open, type the following keyword: `%appdata%` and then press Enter. This will open your AppData folder.<br />
-    c. In the AppData folder, double-click the `Apple Computer` folder.<br />
+    b. While the Start menu is open, type `%appdata%` and press Enter. This will open your `AppData` folder.<br />
+    c. In the `AppData` folder, double-click the `Apple Computer` folder.<br />
     d. Double-click the `MobileSync` folder.<br />
 
 12. Rename the `Backup` folder to `Backup-Old`.
