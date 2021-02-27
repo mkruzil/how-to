@@ -5,9 +5,9 @@
 1. Take a full backup of your C drive in case anything goes wrong, you can always get your files back.
 2. After you have a full backup of your C drive, take a backup of your iPhone.
 
-  a. Plug your iPhone into your computer.
-  b. Open **iTunes**.
-  c. Click **Back Up Now**.
+      a. Plug your iPhone into your computer.
+      b. Open **iTunes**.
+      c. Click **Back Up Now**.
 
 3. Create a folder at the root of your external hard drive. *Note: change the drive letter to match the actual drive letter of your external drive*.
    
@@ -27,10 +27,10 @@
 9. Close iTunes.
 10. Reclaim the disk space that was taken up by the back ups by following these steps:
 
-  a. Click **Start->Windows Administrative Tools-> Disk Cleanup**.
-  b. Make a note of number next to **Total amount of disk space you gain**.
-  c  Make sure all items in the **Files to delete** box are checked and click **OK**.
-  d. Repeat steps A-D until the  **Total amount of disk space you gain** reaches around 100 MB. *Note that this can take a long time and may take repeating these steps multiple times.*
+    a. Click **Start->Windows Administrative Tools-> Disk Cleanup**.
+    b. Make a note of number next to **Total amount of disk space you gain**.
+    c  Make sure all items in the **Files to delete** box are checked and click **OK**.
+    d. Repeat steps A-D until the  **Total amount of disk space you gain** reaches around 100 MB. *Note that this can take a long time and may take repeating these steps multiple times.*
 
 11. Rename your existing iTunes backup folder from:
 
@@ -42,8 +42,8 @@
 
 12. Create a symbolic link that points the iTunes backup folder on your C drive to your external drive:
  
-  a. Click **Start->Windows System->Command Prompt**.
-  b. Type the following command, replacing **"D"** with the actual drive letter of your external drive:
+    a. Click **Start->Windows System->Command Prompt**.
+    b. Type the following command, replacing **"D"** with the actual drive letter of your external drive:
 
        `mklink /j "%APPDATA%\Apple Computer\MobileSync\Backup" "D:\Apple Computer\MobileSync\Backup"`
 
