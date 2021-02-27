@@ -14,7 +14,7 @@
    
    `D:\Apple Computer`
 
-3. Open the Apple Computer folder on your C drive
+3. Open the `Apple Computer` folder on your C drive:
 
    a. Click the **Start** button.
    b. While the Start menu is open, type the following keyword: `%appdata%` and then press Enter. This will open your AppData folder.
@@ -22,7 +22,7 @@
 
 4. Right-click on the `MobileSync` folder and click **Copy**:
 
-5. Open the **Apple Computer** folder on your external hard drive, right-click inside the folder and click **Paste** to paste the MobileSync folder from your C drive onto your external hard drive. You should now have the following path on your external hard drive:
+5. Open the `Apple Computer` folder on your external hard drive, right-click inside the folder and click **Paste** to paste the MobileSync folder from your C drive onto your external hard drive. You should now have the following path on your external hard drive:
 
    `D:\Apple Computer\MobileSync`
 
@@ -37,23 +37,23 @@
     c. Make sure all items in the *Files to delete* box are checked and click **OK**.<br />
     d. Repeat steps a-d until the  *Total amount of disk space you gain* reaches around 100 MB. **Note: this can take a long time and may require repeating these steps multiple times.**
 
-11. Open the MobileSync folder on your C drive:
+11. Open the `MobileSync` folder on your C drive:
 
-   a. Click the **Start** button.
-   b. While the Start menu is open, type the following keyword: `%appdata%` and then press Enter. This will open your AppData folder.
-   c. In the AppData folder, double-click the `Apple Computer` folder.
-   d. Double-click the `MobileSync` folder.
+    a. Click the **Start** button.<br />
+    b. While the Start menu is open, type the following keyword: `%appdata%` and then press Enter. This will open your AppData folder.<br />
+    c. In the AppData folder, double-click the `Apple Computer` folder.<br />
+    d. Double-click the `MobileSync` folder.<br />
 
 12. Rename the `Backup` folder to `Backup-Old`.
 
 12. Create a symbolic link that points the iTunes backup folder on your C drive to your external drive:
  
-    a. Click **Start->Windows System->Command Prompt**.
-    b. Type the following command, replacing **"D"** with the actual drive letter of your external drive:
+    a. Click **Start->Windows System->Command Prompt**.<br />
+    b. Type the following command, replacing the drive letter `D` with the actual drive letter of your external drive:<br />
 
        `mklink /j "%APPDATA%\Apple Computer\MobileSync\Backup" "D:\Apple Computer\MobileSync\Backup"`
 
-       After running the command, you'll see the following message 
+       After running the command, you'll see the following message:
 
        *Junction created for C:\Users\Username\AppData\Roaming\Apple Computer\MobileSync\Backup <<===>> D:\Apple Computer\MobileSync\Backup*
 
