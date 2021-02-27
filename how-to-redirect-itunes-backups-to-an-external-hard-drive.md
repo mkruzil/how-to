@@ -47,7 +47,7 @@
 11. Create a symbolic link that points the iTunes backup folder on your C drive to your external drive:
  
     a. Click **Start->Windows System->Command Prompt**.<br />
-    b. Type the following command, replacing the drive letter `D` with the actual drive letter of your external drive:<br />
+    b. Enter the following command, replacing the drive letter `D` with the actual drive letter of your external hard drive:<br />
 
        `mklink /j "%APPDATA%\Apple Computer\MobileSync\Backup" "D:\Apple Computer\MobileSync\Backup"`
 
