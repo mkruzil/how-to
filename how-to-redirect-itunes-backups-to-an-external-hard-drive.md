@@ -57,7 +57,7 @@
 
        *Junction created for C:\Users\Username\AppData\Roaming\Apple Computer\MobileSync\Backup <<===>> D:\Apple Computer\MobileSync\Backup*
 
-13. Open iTunes and go to **Edit->Preferences->Devices**. You should see all your previous iTunes backups displayed. *Note: it can take a minute for the backups to load since now they are loading from the external drive.*
+13. Re-open iTunes and go to **Edit->Preferences->Devices**. You should see all your previous iTunes backups displayed. *Note: it can take a minute for the backups to display because now they are loading from your external hard drive.*
 
 Now, the next time you plug in your iPhone and click **Back up now** in iTunes, the backup will be stored on your external hard drive instead of your local C drive.
 
