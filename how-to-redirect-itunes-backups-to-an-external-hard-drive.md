@@ -2,22 +2,22 @@
 
 *Note: These steps are for the Windows 10 operating system*.
 
-1. Take a full backup of your C drive in case anything goes wrong, you can always get your files back.
-2. After you have a full backup of your C drive, take a backup of your iPhone:
+1. As a precaution, take a full backup of your C drive. This way, if anything goes wrong, you can restore your data.
+2. After you have performed a full backup of your C drive, take a backup of your iPhone:
 
     a. Plug your iPhone into your computer.<br />
     b. Open **iTunes**.<br />
     c. Click **Back Up Now**.<br />
     d. Close iTunes.
 
-3. Create the following folder at the root of your external hard drive. *Note: change the drive letter to match the actual drive letter of your external drive*:
+3. Create a new folder named `Apple Computer` at the root of your external hard drive. For example, if the drive letter of your external hard drive is `D`, you would create the following folder:
    
    `D:\Apple Computer`
 
-3. Open the `Apple Computer` folder on your C drive:
+3. On your local C drive, follow these steps to open the old `Apple Computer` folder:
 
-   a. Click the **Start** button.
-   b. While the Start menu is open, type the following keyword: `%appdata%` and then press Enter. This will open your AppData folder.
+   a. Click the **Start** button.<br />
+   b. While the Start menu is open, type the following keyword: `%appdata%` and then press Enter. This will open your AppData folder.<br />
    c. In the AppData folder, double-click the `Apple Computer` folder.
 
 4. Right-click on the `MobileSync` folder and click **Copy**:
