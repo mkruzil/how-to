@@ -14,12 +14,11 @@
    
    `D:\Apple Computer`
 
-3. Follow these steps to open the `MobileSync` folder on your C drive:
+3. Follow these steps to get to the `MobileSync` folder on your C drive:
 
    a. Click the **Start** button.<br />
    b. While the Start menu is open, type `%appdata%` and press Enter. This will open your `AppData` folder.<br />
-   c. In the `AppData` folder, double-click the `Apple Computer` folder.
-   d. Double-click the `MobileSync` folder.<br />
+   c. In the `AppData` folder, double-click the `Apple Computer` folder.<br />
 
 4. Right-click on the `MobileSync` folder and click **Copy**:
 
