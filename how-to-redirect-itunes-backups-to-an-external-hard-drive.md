@@ -14,7 +14,7 @@
    
    `D:\Apple Computer`
 
-3. On your local C drive, follow these steps to open your old `Apple Computer` folder:
+3. Follow these steps to open the `Apple Computer` folder on your C drive:
 
    a. Click the **Start** button.<br />
    b. While the Start menu is open, type `%appdata%` and press Enter. This will open your `AppData` folder.<br />
