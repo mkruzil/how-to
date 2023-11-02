@@ -1,8 +1,10 @@
 # How to Redirect iTunes Backups to an External Hard Drive
 
-*Note: These steps are for the Windows 10 operating system*.
+*Note: These steps were written for the Windows 10 operating system*.
 
 1. Install iTunes: https://www.apple.com/itunes/?cid=OAS-US-DOMAINS-itunes.com
+
+   Note: If you are in S mode, you need to switch out of it in order to instal iTunes. See: https://support.microsoft.com/en-us/windows/switching-out-of-s-mode-in-windows-4f56d9be-99ec-6983-119f-031bfb28a307
 
 2. Open and then close iTunes to ensure you have an iTunes folder created on your local hard drive.
 
