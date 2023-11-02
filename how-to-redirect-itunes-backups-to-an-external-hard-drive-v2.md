@@ -2,7 +2,7 @@
 
 *Note: These steps are for the Windows 10 operating system*.
 
-1. Install iTunes: https://apps.microsoft.com/detail/9PB2MZ1ZMB1S?rtc=2&activetab=pivot%3Aoverviewtab&hl=en-us&gl=US
+1. Install iTunes: https://www.apple.com/itunes/?cid=OAS-US-DOMAINS-itunes.com
 
 2. Open and then close iTunes to ensure you have an iTunes folder created on your local hard drive.
 
