@@ -27,7 +27,7 @@
     a. Click **Start->Windows System->Command Prompt**.<br />
     b. Enter the following command, replacing the drive letter `D` with the actual drive letter of your external hard drive:<br />
 
-       `mklink /j "%APPDATA%\Apple Computer\MobileSync\Backup" "D:\Apple Computer\MobileSync\Backup"`
+       mklink /j "%APPDATA%\Apple Computer\MobileSync\Backup" "D:\Apple Computer\MobileSync\Backup"
 
     c. After running the command, you'll see the following message:
 
