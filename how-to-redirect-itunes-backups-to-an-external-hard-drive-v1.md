@@ -1,6 +1,9 @@
 # How to Redirect iTunes Backups to an External Hard Drive
 
-*Note: These steps are for the Windows 10 operating system*.
+*Notes:* 
+
+-These steps are for a computer that has an existing iTunes backup that needs to be redirected to an external drive.<br />
+-The steps were written for the Windows 10 operating system but also work on Windows 11.
 
 1. As a precaution, take a full backup of your C drive. This way, if anything goes wrong, you can restore your data.
 2. After you have performed a full backup of your C drive, take a backup of your iPhone:
